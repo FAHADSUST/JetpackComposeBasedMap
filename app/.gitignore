@@ -1,0 +1,79 @@
+# Gradle files
+/build
+.gradle/
+build/
+**/build/
+!gradle-wrapper.jar
+!gradle-wrapper.properties
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Log files
+*.log
+
+# Android Studio files
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Keystore files
+*.jks
+
+# Gradle caches
+.gradle/
+build/
+
+# Kotlin specific
+*.kotlin_metadata
+*.kotlin_module
+
+# Java specific
+*.class
+
+# Android specific
+*.apk
+*.ap_
+*.dex
+*.so
+*.jar
+*.war
+*.ear
+
+# Proguard
+proguard/
+
+# IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# User-specific files
+*.sublime-workspace
+*.sublime-project
+*.swp
+*~
+.DS_Store
+*.swo
+*.swn
+*.bak
+*.tmp
+*.temp
+*.orig
+*.old
+*.log
+*.log.*
+
+# Mac OS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
