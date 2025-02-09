@@ -7,6 +7,9 @@ junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 appcompat = "1.6.1"
 material = "1.10.0"
+constraintlayout = "2.2.0"
+navigationFragmentKtx = "2.8.6"
+navigationUiKtx = "2.8.6"
 
 [plugins]
 android-application = { id = "com.android.application", version = "8.8.0" }
@@ -36,3 +39,6 @@ play-services-maps = { group = "com.google.android.gms", name = "play-services-m
 room-runtime = { group = "androidx.room", name = "room-runtime", version = "2.4.3" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version = "2.4.3" }
 room-ktx = { group = "androidx.room", name = "room-ktx", version = "2.4.3" }
+androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
+androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtx" }
