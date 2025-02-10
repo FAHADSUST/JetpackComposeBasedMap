@@ -9,17 +9,20 @@ import com.moqochallenge.poi.data.model.POI
 @Dao
 interface POIDao {
 
-    /*@Query("""
+    @Query("""
         SELECT *
         FROM   poi
         WHERE  latitude BETWEEN :swLat AND :neLat
                AND longitude BETWEEN :swLng AND :neLng
     """)
-    suspend fun getPOIs(swLat: Double, neLat: Double, swLng: Double, neLng: Double): List<POI>*/
+    suspend fun getPOIs(swLat: Double, neLat: Double, swLng: Double, neLng: Double): List<POI>
 
-    //@Insert(onConflict = OnConflictStrategy.REPLACE)
-    //suspend fun insertPOIs(pois: List<POI>)
+    @Query("SELECT * FROM poi WHERE id = :poiId LIMIT 1")
+    suspend  fun getPOIById(poiId: String): POI?
 
-    //@Query("DELETE FROM poi")
-    //suspend fun clearPOIs()
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertPOIs(poi: List<POI>)
+
+    @Query("DELETE FROM poi")
+    suspend fun clearPOIs()
 }

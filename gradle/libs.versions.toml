@@ -37,9 +37,9 @@ converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", ve
 logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version = "4.9.3" }
 maps-compose = { group = "com.google.maps.android", name = "maps-compose", version = "2.0.0" }
 play-services-maps = { group = "com.google.android.gms", name = "play-services-maps", version = "18.0.2" }
-room-runtime = { group = "androidx.room", name = "room-runtime", version = "2.4.3" }
-room-compiler = { group = "androidx.room", name = "room-compiler", version = "2.4.3" }
-room-ktx = { group = "androidx.room", name = "room-ktx", version = "2.4.3" }
+room-runtime = { group = "androidx.room", name = "room-runtime", version = "2.6.1" }
+room-compiler = { group = "androidx.room", name = "room-compiler", version = "2.6.1" }
+room-ktx = { group = "androidx.room", name = "room-ktx", version = "2.6.1" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
 androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtx" }

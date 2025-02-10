@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "poi")
 data class POI(
-    @PrimaryKey(autoGenerate = true) @SerializedName("id") val id: Int?,
+    @PrimaryKey @SerializedName("id") val id: String,
     @SerializedName("lat") val latitude: Double,
     @SerializedName("lng") val longitude: Double,
     @SerializedName("name") val name: String,
