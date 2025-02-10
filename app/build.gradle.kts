@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.dagger.hilt.android) // Add Hilt plugin
     alias(libs.plugins.google.devtools.ksp) // Add KSP plugin
+    alias(libs.plugins.compose.compiler)
     kotlin("kapt") // Apply kapt plugin
 }
 
@@ -30,11 +31,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "17"
     }
     buildFeatures {
         viewBinding = true
@@ -87,5 +88,6 @@ dependencies {
     kapt(libs.room.compiler)
     implementation(libs.room.ktx)
 
+   // implementation(libs.androidx.navigation.navigation.compose)
     implementation ("androidx.navigation:navigation-compose:2.5.3")
 }

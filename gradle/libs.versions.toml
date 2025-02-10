@@ -16,6 +16,7 @@ android-application = { id = "com.android.application", version = "8.8.0" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version = "1.8.0" }
 dagger-hilt-android = { id = "com.google.dagger.hilt.android", version = "2.44" }
 google-devtools-ksp = { id = "com.google.devtools.ksp", version = "1.8.0-1.0.8" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version = "2.0.0" }
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version = "1.9.0" }
