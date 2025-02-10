@@ -1,12 +1,11 @@
 package com.moqochallenge.poi.data.model
-
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-@Entity(tableName = "pois")
+@Entity(tableName = "poi")
 data class POI(
-    @PrimaryKey @SerializedName("id") val id: String,
+    @PrimaryKey(autoGenerate = true) @SerializedName("id") val id: Int?,
     @SerializedName("lat") val latitude: Double,
     @SerializedName("lng") val longitude: Double,
     @SerializedName("name") val name: String,
