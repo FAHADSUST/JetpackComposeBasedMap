@@ -15,15 +15,22 @@ import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
 fun POIDetailScreen(poiId: String, navController: NavController, viewModel: POIDetailViewModel = hiltViewModel()) {
-    val poi = viewModel.getPOIDetails(poiId).collectAsState(initial = null).value
+    val poi by viewModel.poiDetail.collectAsState()
+
+    LaunchedEffect(poiId) {
+        viewModel.loadPOIDetails(poiId)
+    }
 
     Scaffold(
         topBar = {
-            TopAppBar(title = { Text("POI Details") }, navigationIcon = {
-                IconButton(onClick = { navController.popBackStack() }) {
-                    Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Back")
+            TopAppBar(
+                title = { Text("POI Details") },
+                navigationIcon = {
+                    IconButton(onClick = { navController.popBackStack() }) {
+                        Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Back")
+                    }
                 }
-            })
+            )
         }
     ) { padding ->
         Box(

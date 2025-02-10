@@ -16,4 +16,10 @@ interface POIApi {
         @Query("page[size]") pageSize: Int = 10,
         @Query("page[number]") pageNumber: Int = 1
     ): POIResponse
+
+    @GET("graph/discovery/pois")
+    suspend fun getDetailPOI(
+        @Query("filter[id]") po_id: String,
+        @Query("extra_fields[pois]") extraFields: String = "image,provider"
+    ): POIResponse
 }
