@@ -71,6 +71,7 @@ dependencies {
     // Hilt for Dependency Injection
     implementation(libs.dagger.hilt.android)
     kapt(libs.dagger.hilt.android.compiler)
+    implementation(libs.hilt.navigation.compose)
 
     // Retrofit for Network Calls
     implementation(libs.retrofit)
@@ -88,7 +89,11 @@ dependencies {
     kapt(libs.room.compiler)
     implementation(libs.room.ktx)
 
-    implementation(libs.hilt.navigation.compose)
-
     implementation(libs.accompanist.swiperefresh)
+
+    // Testing
+    androidTestImplementation(libs.androidx.test.ext.junit)
+    androidTestImplementation(libs.compose.ui.test)
+    androidTestImplementation(libs.androidx.test.runner)
+    androidTestImplementation(libs.mockito.android)
 }
