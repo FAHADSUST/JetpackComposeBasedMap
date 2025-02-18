@@ -1,21 +1,15 @@
 package com.moqochallenge.poi.presentation.ui
 
-
 import android.annotation.SuppressLint
-import android.text.Layout
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.FloatingActionButton
-import androidx.compose.material.Icon
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.LineHeightStyle
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
@@ -25,13 +19,14 @@ import com.moqochallenge.poi.presentation.viewmodel.POIViewModel
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
-
+import kotlinx.coroutines.flow.firstOrNull
 
 @SuppressLint("MissingPermission")
 @Composable
-fun POIMapScreen(viewModel: POIViewModel = hiltViewModel(), navController: NavController) {
+fun POIMapScreen(viewModel: POIViewModel = hiltViewModel(), navController: NavController?) {
     val pois by viewModel.poiList.collectAsState()
     val isRefreshing by viewModel.isRefreshing.collectAsState()
+    val isLoading by viewModel.isLoading.collectAsState()
 
     val defaultLocation = LatLng(52.5200, 13.4050) // Default to Berlin
     val cameraPositionState = rememberCameraPositionState {
@@ -40,14 +35,18 @@ fun POIMapScreen(viewModel: POIViewModel = hiltViewModel(), navController: NavCo
 
     var lastBoundingBox by remember { mutableStateOf<Pair<LatLng, LatLng>?>(null) }
 
-    // Refresh function
     fun refreshPOIs() {
         val visibleRegion = cameraPositionState.projection?.visibleRegion
-        visibleRegion?.let {
-            val ne = it.latLngBounds.northeast
-            val sw = it.latLngBounds.southwest
 
-            // Only refresh if bounding box has changed
+        if (visibleRegion == null) {
+            val boundingBox = viewModel.calculateBoundingBox(defaultLocation, 50.0) // 50km in each direction
+            val ne = boundingBox.first
+            val sw = boundingBox.second
+            viewModel.loadPOIs(ne.latitude, ne.longitude, sw.latitude, sw.longitude)
+        } else {
+            val ne = visibleRegion.latLngBounds.northeast
+            val sw = visibleRegion.latLngBounds.southwest
+
             if (lastBoundingBox != Pair(ne, sw)) {
                 lastBoundingBox = Pair(ne, sw)
                 viewModel.loadPOIs(ne.latitude, ne.longitude, sw.latitude, sw.longitude)
@@ -55,7 +54,6 @@ fun POIMapScreen(viewModel: POIViewModel = hiltViewModel(), navController: NavCo
         }
     }
 
-    // Observe map movement to trigger refresh
     LaunchedEffect(cameraPositionState.isMoving) {
         if (!cameraPositionState.isMoving) {
             refreshPOIs()
@@ -67,28 +65,54 @@ fun POIMapScreen(viewModel: POIViewModel = hiltViewModel(), navController: NavCo
         state = rememberSwipeRefreshState(isRefreshing),
         onRefresh = { refreshPOIs() }
     ) {
-        GoogleMap(
-            modifier = Modifier.fillMaxSize(),
-            cameraPositionState = cameraPositionState
-        ) {
-            pois.forEach { poi ->
-                Marker(
-                    state = MarkerState(position = LatLng(poi.latitude, poi.longitude)),
-                    title = poi.name,
-                    onClick = {
-                        navController.navigate(Screen.DetailScreen.createRoute(poi.id!!.toString()))
-                        true
+        Box(modifier = Modifier.fillMaxSize()) {
+            GoogleMap(
+                modifier = Modifier.fillMaxSize().testTag("GoogleMap"),
+                cameraPositionState = cameraPositionState
+            ) {
+                pois.forEach { poi ->
+                    poi.id?.let { poiId ->
+                        Marker(
+                            state = MarkerState(position = LatLng(poi.latitude, poi.longitude)),
+                            title = poi.name,
+                            snippet = "POI_Marker_$poiId",  // Unique contentDescription for testing
+                            onClick = {
+                                navController?.navigate(Screen.DetailScreen.createRoute(poiId))
+                                true
+                            }
+                        )
                     }
+                }
+            }
+
+            // Show loading indicator while fetching data
+            if (isLoading) {
+                CircularProgressIndicator(
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .testTag("LoadingIndicator")
+                )
+            }
+
+            // Show "No POIs Available" message when data is empty
+            if (!isLoading && pois.isEmpty()) {
+                Text(
+                    text = "No POIs Available",
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .testTag("No_POIs_Text")
                 )
             }
         }
     }
 
-    // Floating Action Button for Manual Refresh
     Box(modifier = Modifier.fillMaxSize()) {
         FloatingActionButton(
             onClick = { refreshPOIs() },
-            modifier = Modifier.align(Alignment.BottomEnd).padding(end = 16.dp, bottom = 100.dp)
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(end = 16.dp, bottom = 100.dp)
+                .testTag("Refresh_Button")
         ) {
             Icon(imageVector = Icons.Default.Refresh, contentDescription = "Refresh POIs")
         }

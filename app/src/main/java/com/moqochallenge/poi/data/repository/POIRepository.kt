@@ -6,7 +6,7 @@ import com.moqochallenge.poi.data.model.POI
 import com.moqochallenge.poi.data.remote.POIApi
 import javax.inject.Inject
 
-class POIRepository @Inject constructor(
+open class POIRepository @Inject constructor(
     private val api: POIApi,
     private val poiDao: POIDao
 ) {

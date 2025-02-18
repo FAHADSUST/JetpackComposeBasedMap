@@ -70,6 +70,7 @@ dependencies {
 
     // Hilt for Dependency Injection
     implementation(libs.dagger.hilt.android)
+    androidTestImplementation(libs.androidx.core.testing)
     kapt(libs.dagger.hilt.android.compiler)
     implementation(libs.hilt.navigation.compose)
 
@@ -95,5 +96,26 @@ dependencies {
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.compose.ui.test)
     androidTestImplementation(libs.androidx.test.runner)
-    androidTestImplementation(libs.mockito.android)
+    //androidTestImplementation(libs.mockito.android)
+
+    androidTestImplementation("com.google.dagger:hilt-android-testing:2.50")
+    kaptAndroidTest("com.google.dagger:hilt-compiler:2.50")
+
+    testImplementation("org.mockito:mockito-android:4.0.0")
+
+    // Mockito-Kotlin (for better Kotlin support)
+    testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
+
+    // Mockito-Inline (for final methods)
+    testImplementation("org.mockito:mockito-inline:5.0.0")
+
+    // JUnit for testing
+    testImplementation("junit:junit:4.13.2")
+
+    // Coroutines test
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.0")
+
+    // AndroidX Core Testing (for ViewModel & LiveData)
+    testImplementation("androidx.arch.core:core-testing:2.1.0")
+
 }
