@@ -17,6 +17,9 @@ mockito-core = "5.0.0"
 coreTesting = "2.1.0"
 mockitoKotlin = "5.0.0"
 mockito = "4.0.0"
+hilt = "2.50"
+mockitoInline = "5.0.0"
+coroutinesTest = "1.7.0"
 
 [plugins]
 android-application = { id = "com.android.application", version = "8.6.1" }
@@ -59,3 +62,7 @@ mockito-core = { group = "org.mockito", name = "mockito-core", version.ref = "mo
 mockito-android = { group = "org.mockito", name = "mockito-android", version.ref = "mockito-core" }
 androidx-core-testing = { group = "androidx.arch.core", name = "core-testing", version.ref = "coreTesting" }
 mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockitoKotlin" }
+hilt-android-testing = { module = "com.google.dagger:hilt-android-testing", version.ref = "hilt" }
+hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
+mockito-inline = { module = "org.mockito:mockito-inline", version.ref = "mockitoInline" }
+coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutinesTest" }
